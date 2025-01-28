@@ -1,3 +1,1 @@
-# JvmPlayground
-
-yes. just playground on jvm.
+# KSP PLAYGROUND
