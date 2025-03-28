@@ -1,1 +1,0 @@
-annotation class MyIntArray(@Suppress("unused") val array: IntArray)

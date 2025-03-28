@@ -15,18 +15,21 @@ class MainTest {
 
   @Test fun test() {
     prepareCompilation(
-      // language=kotlin
       """
-@MyIntArray([1, 2, 3])
-fun test() = Unit
+package test.test2
+
+import MyTest
+
+@MyTest
+class Test2
       """.trimIndent(),
     )
       .compile()
   }
 
-  private fun prepareCompilation(vararg sources: String): KotlinCompilation =
+  private fun prepareCompilation(source: String): KotlinCompilation =
     KotlinCompilation().apply {
-      this.sources = sources.map { SourceFile.kotlin("test.kt", it, trimIndent = false) }
+      this.sources = listOf(SourceFile.kotlin("test.kt", source, trimIndent = false))
       workingDir = dir.toFile()
       inheritClassPath = true
       useKsp2()

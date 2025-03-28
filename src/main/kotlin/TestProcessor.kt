@@ -1,3 +1,6 @@
+@file:OptIn(KspExperimental::class)
+
+import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
@@ -11,10 +14,14 @@ class TestProcessor : SymbolProcessor {
     if (invoked) return emptyList() // Only need a single round.
     invoked = true
 
-    resolver.getSymbolsWithAnnotation(MyIntArray::class.qualifiedName!!)
+    resolver.getSymbolsWithAnnotation(MyTest::class.qualifiedName!!)
       .forEach { symbol ->
-        println("Found @MyIntArray with value: $symbol")
+        println("Found @MyTest with value: $symbol")
       }
+
+    resolver.getDeclarationsFromPackage("test.*")
+      .toList()
+      .let { println("TEST: " + it.joinToString { it.qualifiedName?.asString().toString() }) }
 
     return emptyList()
   }
